@@ -2,14 +2,15 @@
 
 import json
 import pickle
+import fb_chat
 from datetime import datetime as dt
-
 from bs4 import BeautifulSoup as bs
 
-import fb_chat
+# Taiwan (Not a part of China)
+# ex: '2013年12月26日 1:56 UTC+08'
+dtFormat = "%Y年%m月%d日 %H:%M"
 
-
-dtFormat = '%A, %B %d, %Y at %I:%M%p %Z'
+# dtFormat = '%A, %B %d, %Y at %I:%M%p %Z'
 #dtFormat = '%A, %d %B %Y at %H:%M %Z'  # UK Format
 
 def html_to_py(file):
@@ -18,11 +19,12 @@ def html_to_py(file):
     for x in soup.find_all(class_='thread'):
         thread_list = []
         for y in x.find_all(class_='message'):
+            print(y.find(class_='user').string)
             thread_list.append(
                 fb_chat.Message(
                     str(y.find(class_='user').string),
                     # Remove "+01" in some dates, to just use BST timezone:
-                    dt.strptime(y.find(class_='meta').string.replace("+01", ""), dtFormat),
+                    dt.strptime(y.find(class_='meta').string[0:-7], dtFormat),
                     str(y.next_sibling.string)
                 )
             )
