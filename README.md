@@ -1,4 +1,4 @@
-# Facebook Message Export Parser (for 繁體中文)
+# Facebook Message Export Parser (目前only for 繁體中文)
 
 Facebook 允許使用者使下自己自己的 Message 對話紀錄，在下載後的 zip 檔案中以 html 檔案保存。
 這樣方便在瀏覽器中點選檢視，但是很難給程式讀取做為資料分析用，所以有了專門將對話內容 parser 出來的程式。
