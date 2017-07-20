@@ -5,15 +5,21 @@ Facebook 允許使用者使下載自己的 Message 對話紀錄，在下載後�
 
 由於時間格式不同，原本的版本無法 parser 繁體中文的對話紀錄。
 
-原作者時間格式：
-- dtFormat = '%A, %B %d, %Y at %I:%M%p %Z'
-- dt.strptime(y.find(class_='meta').string.replace("+01", ""), dtFormat),
+- 原作者時間格式：
+```python
+dtFormat = '%A, %B %d, %Y at %I:%M%p %Z'
+dt.strptime(y.find(class_='meta').string.replace("+01", ""), dtFormat),
+```
 
-可 parser 繁體中文格式
-- dtFormat = "%Y年%m月%d日 %H:%M"
-- dt.strptime(y.find(class_='meta').string[0:-7], dtFormat), # 用 [0:-7] 去除掉繁體中文無法 parser 的 UTC
+- 可 parser 繁體中文格式
+```python
+dtFormat = "%Y年%m月%d日 %H:%M"
+dt.strptime(y.find(class_='meta').string[0:-7], dtFormat), # 用 [0:-7] 去除掉繁體中文無法 parser 的 UTC
+```
 
 目前這個 fork 暫時只讓繁體中文可以被 parser，和原作者的功能會衝突，日後會想辦法讓這些功能相容。
+
+=======
 
 Facebook has a feature that allows users to download a copy of their data as a zip archive containing htm files with their data. The aim of this parser is to take this archive and to extract a user's Facebook Messages from it; to transfer them into a more useful format, as well as performing some analysis to produce interesting data.
 
