@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup as bs
 dtFormat = "%Y年%m月%d日 %H:%M"
 
 # dtFormat = '%A, %B %d, %Y at %I:%M%p %Z'
-#dtFormat = '%A, %d %B %Y at %H:%M %Z'  # UK Format
+# dtFormat = '%A, %d %B %Y at %H:%M %Z'  # UK Format
 
 def html_to_py(file):
     soup = bs(file)
@@ -24,6 +24,7 @@ def html_to_py(file):
                 fb_chat.Message(
                     str(y.find(class_='user').string),
                     # Remove "+01" in some dates, to just use BST timezone:
+                    # 用 [0:-7] 去除掉繁體中文無法 parser 的 UTC
                     dt.strptime(y.find(class_='meta').string[0:-7], dtFormat),
                     str(y.next_sibling.string)
                 )
